@@ -4,16 +4,16 @@ export function renderRecipeCards(recipes, container) {
     recipes.forEach((r) => {
         const card = document.createElement("article");
         card.className =
-            "group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md";
+            "recipe-card group overflow-hidden rounded-2xl transition";
 
         const media = document.createElement("div");
-        media.className = "aspect-[4/3] bg-gradient-to-br from-[#4CAF50]/15 to-[#FF9800]/15";
+        media.className = "recipe-media aspect-[4/3]";
 
         const inner = document.createElement("div");
         inner.className = "p-4";
 
         const title = document.createElement("h3");
-        title.className = "font-semibold leading-snug group-hover:text-[#4CAF50] transition";
+        title.className = "font-semibold leading-snug group-hover:text-[#3f8c6a] transition";
         title.textContent = r.title;
 
         const desc = document.createElement("p");
@@ -25,12 +25,12 @@ export function renderRecipeCards(recipes, container) {
 
         const pill = document.createElement("span");
         pill.className =
-            "inline-flex items-center rounded-full bg-[#4CAF50]/10 px-2.5 py-1 text-xs font-medium text-[#2E7D32]";
+            "recipe-pill inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium";
         pill.textContent = "Recipe";
 
         const pill2 = document.createElement("span");
         pill2.className =
-            "inline-flex items-center rounded-full bg-[#FF9800]/10 px-2.5 py-1 text-xs font-medium text-[#C77700]";
+            "recipe-pill recipe-pill--accent inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium";
         pill2.textContent = "Nutrition next";
 
         pillRow.appendChild(pill);
