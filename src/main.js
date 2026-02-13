@@ -2,7 +2,7 @@ import "./style.css";
 
 import { createAppShell } from "./src/ui/dom.js";
 import { loadPartials } from "./utils/partials.mjs";
-import { qs, qsa, debounce, normalizeCountryName } from "./src/lib/utils.js";
+import { qs, debounce, normalizeCountryName } from "./src/lib/utils.js";
 import { state } from "./src/lib/state.js";
 import {
     fetchCategories,
@@ -13,6 +13,11 @@ import {
 } from "./src/api/meals.js";
 import { fetchCountryByName } from "./src/api/countries.js";
 import { renderCategories, renderMeals, renderLoadingGrid, setStatus, showDetails, showDetailsLoading, hideDetails } from "./src/ui/render.js";
+
+const STORAGE_KEYS = {
+    MODE: "rf_mode",
+    QUERY: "rf_query",
+};
 
 function mount() {
     const app = qs("#app");
@@ -37,6 +42,23 @@ function updateModeFromUI() {
 function updateQueryFromUI() {
     const input = qs("#query");
     state.query = input.value;
+}
+
+function restoreFromLocalStorage() {
+    const savedMode = localStorage.getItem(STORAGE_KEYS.MODE);
+    const savedQuery = localStorage.getItem(STORAGE_KEYS.QUERY);
+
+    if (savedMode) {
+        state.mode = savedMode;
+        const modeSelect = qs("#mode");
+        if (modeSelect) modeSelect.value = savedMode;
+    }
+
+    if (savedQuery) {
+        state.query = savedQuery;
+        const queryInput = qs("#query");
+        if (queryInput) queryInput.value = savedQuery;
+    }
 }
 
 function setTitle(text) {
@@ -181,6 +203,9 @@ function bindEvents() {
         updateModeFromUI();
         updateQueryFromUI();
 
+        localStorage.setItem(STORAGE_KEYS.MODE, state.mode);
+        localStorage.setItem(STORAGE_KEYS.QUERY, state.query);
+
         if (state.mode === "ingredient") await searchByIngredient();
         else await searchByName();
     });
@@ -228,6 +253,7 @@ async function init() {
     mount();
     await loadPartials();
     bindEvents();
+    restoreFromLocalStorage();
     await loadCategories();
 
     // Initial friendly state
