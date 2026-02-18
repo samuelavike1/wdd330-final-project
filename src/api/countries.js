@@ -2,7 +2,7 @@ import { COUNTRIES_BASE, COUNTRIES_FIELDS } from "../lib/config.js";
 
 async function getJson(url) {
     const res = await fetch(url);
-    if (!res.ok) return null; // if not found, treat as null (no crash)
+    if (!res.ok) return null;
     return res.json();
 }
 

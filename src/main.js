@@ -1,18 +1,18 @@
 import "./style.css";
 
-import { createAppShell } from "./src/ui/dom.js";
+import { createAppShell } from "./ui/dom.js";
 import { loadPartials } from "./utils/partials.mjs";
-import { qs, debounce, normalizeCountryName } from "./src/lib/utils.js";
-import { state } from "./src/lib/state.js";
+import { qs, debounce, normalizeCountryName } from "./lib/utils.js";
+import { state } from "./lib/state.js";
 import {
     fetchCategories,
     searchMealsByName,
     searchMealsByIngredient,
     fetchMealsByCategory,
     fetchMealDetailsById,
-} from "./src/api/meals.js";
-import { fetchCountryByName } from "./src/api/countries.js";
-import { renderCategories, renderMeals, renderLoadingGrid, setStatus, showDetails, showDetailsLoading, hideDetails } from "./src/ui/render.js";
+} from "./api/meals.js";
+import { fetchCountryByName } from "./api/countries.js";
+import { renderCategories, renderMeals, renderLoadingGrid, setStatus, showDetails, showDetailsLoading, hideDetails } from "./ui/render.js";
 
 const STORAGE_KEYS = {
     MODE: "rf_mode",
